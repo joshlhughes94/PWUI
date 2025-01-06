@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
+using PWUI.Models;
 using PWUI.Services;
 using Reqnroll;
 
@@ -16,6 +17,8 @@ namespace PWUI
         private readonly IPageDependencyService _pageDependencyService;
         private IBrowser _browser;
         private IPage _page;
+        private static readonly Random _random = new Random();
+        private static readonly Guid _guid = new Guid();
 
         public StepDefinitions(IPageService pageService, IPageDependencyService pageDependencyService)
         {
@@ -45,11 +48,19 @@ namespace PWUI
             bool isHeadless = false;
             return browserName.ToLower() switch
             {
-                "chromium" => await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = isHeadless}),
-                "firefox" => await playwright.Firefox.LaunchAsync(new BrowserTypeLaunchOptions{ Headless = isHeadless}),
-                "webkit" => await playwright.Webkit.LaunchAsync(new BrowserTypeLaunchOptions { Headless = isHeadless}),
+                "chromium" => await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = isHeadless }),
+                "firefox" => await playwright.Firefox.LaunchAsync(new BrowserTypeLaunchOptions { Headless = isHeadless }),
+                "webkit" => await playwright.Webkit.LaunchAsync(new BrowserTypeLaunchOptions { Headless = isHeadless }),
                 _ => throw new ArgumentException($"Browser '{browserName}' is not supported"),
             };
+        }
+
+        private string GenerateRandomName()
+        {
+            var randomName = _random;
+            var names = new[] { "Josh", "Steve", "Alicia", "Nala", "Shadow" };
+            int index = randomName.Next(names.Length);
+            return names[index];
         }
 
         [Given("I have navigated to the test url")]
@@ -57,6 +68,22 @@ namespace PWUI
         {
             var landingPage = _pageService.LandingPage;
             await landingPage.GoToLandingPage();
+        }
+
+        [When("I have completed the Contact Form")]
+        public async Task CompleteContactForm()
+        {
+            var landingPage = new LandingPage(_pageDependencyService);
+            int randomNumber = _random.Next(1, 500); 
+            string name = GenerateRandomName();
+            string email = $"test{randomNumber}@example.com";
+
+            long phoneNumber = _random.Next(100000000, 200000000) + 10000000000; 
+            string subject = "Inquiry";
+            string message = "";
+            
+            await _pageService.LandingPage.SubmitContactForm(name, email, phoneNumber, subject, message);
+            await landingPage.RetryContactFormSubmission(name, email, phoneNumber, subject, message);
         }
     }
 }

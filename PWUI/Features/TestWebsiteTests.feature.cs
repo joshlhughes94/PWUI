@@ -96,6 +96,9 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
  await testRunner.GivenAsync("I have navigated to the test url", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
+#line 6
+ await testRunner.WhenAsync("I have completed the Contact Form", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }

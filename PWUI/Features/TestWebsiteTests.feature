@@ -3,4 +3,5 @@
 @browser-firefox
 Scenario: Test Website Chrome
 	Given I have navigated to the test url
+	When I have completed the Contact Form
 
