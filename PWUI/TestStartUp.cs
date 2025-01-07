@@ -66,7 +66,6 @@ namespace PWUI
                 var playwright = await Playwright.CreateAsync().ConfigureAwait(false);
                 var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                 {
-                    Headless = true,
                     SlowMo = 200,
                 }).ConfigureAwait(false);
                 return await browser.NewPageAsync().ConfigureAwait(false);

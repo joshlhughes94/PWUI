@@ -45,7 +45,7 @@ namespace PWUI
         private async Task<IBrowser> InitializeBrowser(string browserName)
         {
             var playwright = await Playwright.CreateAsync();
-            bool isHeadless = false;
+            bool isHeadless = true;
             return browserName.ToLower() switch
             {
                 "chromium" => await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = isHeadless }),
@@ -80,7 +80,7 @@ namespace PWUI
 
             long phoneNumber = _random.Next(100000000, 200000000) + 10000000000; 
             string subject = "Inquiry";
-            string message = "";
+            string message = "A general Inquiry";
             
             await _pageService.LandingPage.SubmitContactForm(name, email, phoneNumber, subject, message);
             await landingPage.RetryContactFormSubmission(name, email, phoneNumber, subject, message);

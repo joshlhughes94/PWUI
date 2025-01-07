@@ -65,16 +65,13 @@ namespace PWUI.Models
             return page.Locator("//*[@class='alert alert-danger']");
         }
 
-        // Method to check for success message visibility
         private async Task<bool>IsSuccessMessageDisplayed()
         {
             var page = await _pageDependencyService.Page;
-            Thread.Sleep(4000);
-            var successMessageLocator = page.Locator("//*[@style='height: 412px;']");
+            var successMessageLocator = page.Locator("//*[@class='col-sm-5'][contains(.,'Thanks for getting in touch')][1]");
             return await successMessageLocator.IsVisibleAsync();
         }
 
-        // Method to submit the contact form
         public async Task<bool> SubmitContactForm(string name, string email, long phoneNumber, string subject, string message)
         {
             var nameField = await GetNameField();
@@ -85,31 +82,27 @@ namespace PWUI.Models
             var submitButton = await GetSubmitButton();
             var errorMessage = await GetErrorMessage();
 
-            // Fill in the form fields
             await nameField.FillAsync(name);
             await emailField.FillAsync(email);
-            await phoneField.FillAsync(phoneNumber.ToString()); // Fill phone field with phoneNumber as string
+            await phoneField.FillAsync(phoneNumber.ToString()); 
             await subjectField.FillAsync(subject);
             await messageField.FillAsync(message);
 
-            // Click the submit button
             await submitButton.ClickAsync();
+            await Task.Delay(1000);
 
-            // Check for success message
             if (await IsSuccessMessageDisplayed())
             {
                 return false; 
             }
 
-            // Check for error message
-            return await errorMessage.IsVisibleAsync(); // Return true if an error is present
+            return await errorMessage.IsVisibleAsync(); 
         }
 
-        // Method to retry contact form submission in case of errors
         public async Task RetryContactFormSubmission(string name, string email, long phoneNumber, string subject, string message)
         {
             bool formSubmittedSuccessfully = false;
-            int maxRetries = 13; 
+            int maxRetries = 5; 
             int retryCount = 0;
 
             while (!formSubmittedSuccessfully && retryCount < maxRetries)
@@ -118,14 +111,13 @@ namespace PWUI.Models
 
                 if (hasError)
                 {
-                    // Update subject and message with additional characters
-                    subject += "XXXXXXX"; // Add characters to subject for retry
-                    message += "XXXXXX";  // Add characters to message for retry
+                    subject += "XXXXXXX"; 
+                    message += "XXXXXX"; 
                     retryCount++;
                 }
                 else
                 {
-                    formSubmittedSuccessfully = true; // Form submitted successfully
+                    formSubmittedSuccessfully = true;
                 }
             }
 
@@ -134,6 +126,5 @@ namespace PWUI.Models
                 throw new Exception("Form submission failed after maximum retries.");
             }
         }
-
     }
 }

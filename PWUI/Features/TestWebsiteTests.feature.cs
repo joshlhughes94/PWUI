@@ -75,14 +75,14 @@ namespace PWUI.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Test Website Chrome")]
+        [NUnit.Framework.DescriptionAttribute("Test Website Firefox")]
         [NUnit.Framework.CategoryAttribute("browser-firefox")]
-        public async System.Threading.Tasks.Task TestWebsiteChrome()
+        public async System.Threading.Tasks.Task TestWebsiteFirefox()
         {
             string[] tagsOfScenario = new string[] {
                     "browser-firefox"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Test Website Chrome", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Test Website Firefox", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -97,6 +97,64 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.GivenAsync("I have navigated to the test url", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 6
+ await testRunner.WhenAsync("I have completed the Contact Form", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Test Website Chrome")]
+        [NUnit.Framework.CategoryAttribute("browser-chromium")]
+        public async System.Threading.Tasks.Task TestWebsiteChrome()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "browser-chromium"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Test Website Chrome", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 9
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 10
+ await testRunner.GivenAsync("I have navigated to the test url", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 11
+ await testRunner.WhenAsync("I have completed the Contact Form", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Test Website Webkit")]
+        [NUnit.Framework.CategoryAttribute("browser-webkit")]
+        public async System.Threading.Tasks.Task TestWebsiteWebkit()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "browser-webkit"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Test Website Webkit", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 14
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 15
+ await testRunner.GivenAsync("I have navigated to the test url", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 16
  await testRunner.WhenAsync("I have completed the Contact Form", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
             }
