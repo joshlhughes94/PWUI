@@ -1,5 +1,5 @@
 trigger:
-- main
+- main # Replace with your branch name
 
 pool:
   vmImage: 'windows-latest'
@@ -8,7 +8,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '6.x' # Adjust the version as needed
+    version: '6.x' # Use the correct .NET version for your tests
 
 - script: dotnet restore
   displayName: 'Restore dependencies'
