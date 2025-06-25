@@ -24,12 +24,6 @@ namespace PWUI
             _pageDependencyService = pageDependencyService ?? throw new ArgumentNullException(nameof(pageDependencyService));
         }
 
-        [BeforeScenario]
-        public void SetUp()
-        {
-            Console.WriteLine($"Starting scenario: {ScenarioContext.Current.ScenarioInfo.Title}");
-        }
-
         private async Task<IBrowser> InitializeBrowser(string browserName)
         {
             var playwright = await Playwright.CreateAsync();
