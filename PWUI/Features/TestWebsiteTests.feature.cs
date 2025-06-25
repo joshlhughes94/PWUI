@@ -75,15 +75,17 @@ namespace PWUI.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buy a item Firefox")]
-        [NUnit.Framework.CategoryAttribute("browser-firefox")]
-        public async System.Threading.Tasks.Task BuyAItemFirefox()
+        [NUnit.Framework.DescriptionAttribute("Buy a backpack successfully on <browser>")]
+        [NUnit.Framework.TestCaseAttribute("browser-firefox", null)]
+        [NUnit.Framework.TestCaseAttribute("browser-webkit", null)]
+        [NUnit.Framework.TestCaseAttribute("browser-chromium", null)]
+        public async System.Threading.Tasks.Task BuyABackpackSuccessfullyOnBrowser(string browser, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "browser-firefox"};
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Buy a item Firefox", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
+            argumentsOfScenario.Add("browser", browser);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Buy a backpack successfully on <browser>", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -93,8 +95,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 4
+ await testRunner.GivenAsync(string.Format("I run the test on \"{0}\"", browser), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
 #line 5
- await testRunner.GivenAsync("I have navigated to the test url, logged in successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.AndAsync("I have navigated to the test url, logged in successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 6
  await testRunner.AndAsync("I add a backpack to my basket", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
@@ -106,82 +111,6 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.AndAsync("I complete the required fields to complete my checkout", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 9
- await testRunner.ThenAsync("I see a message confirming that my order has been successful", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buy a item Safari")]
-        [NUnit.Framework.CategoryAttribute("browser-webkit")]
-        public async System.Threading.Tasks.Task BuyAItemSafari()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "browser-webkit"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Buy a item Safari", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 13
- await testRunner.GivenAsync("I have navigated to the test url, logged in successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 14
- await testRunner.AndAsync("I add a backpack to my basket", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 15
- await testRunner.WhenAsync("I go to the basket and select Checkout", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 16
- await testRunner.AndAsync("I complete the required fields to complete my checkout", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 17
- await testRunner.ThenAsync("I see a message confirming that my order has been successful", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buy a item Chrome")]
-        [NUnit.Framework.CategoryAttribute("browser-chromium")]
-        public async System.Threading.Tasks.Task BuyAItemChrome()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "browser-chromium"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Buy a item Chrome", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 20
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 21
- await testRunner.GivenAsync("I have navigated to the test url, logged in successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 22
- await testRunner.AndAsync("I add a backpack to my basket", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 23
- await testRunner.WhenAsync("I go to the basket and select Checkout", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 24
- await testRunner.AndAsync("I complete the required fields to complete my checkout", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 25
  await testRunner.ThenAsync("I see a message confirming that my order has been successful", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }

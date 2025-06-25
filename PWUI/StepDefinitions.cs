@@ -25,19 +25,9 @@ namespace PWUI
         }
 
         [BeforeScenario]
-        public async Task SetUp()
+        public void SetUp()
         {
-            string browserName = "chromium";
-            var tags = ScenarioContext.Current.ScenarioInfo.Tags;
-            var browserTag = tags.FirstOrDefault(tag => tag.StartsWith("browser-"));
-            if (browserTag != null)
-            {
-                browserName = browserTag.Split('-')[1].ToLower();
-            }
-
-            _browser = await InitializeBrowser(browserName);
-            _page = await _browser.NewPageAsync();
-            _pageDependencyService.SetPage(_page);
+            Console.WriteLine($"Starting scenario: {ScenarioContext.Current.ScenarioInfo.Title}");
         }
 
         private async Task<IBrowser> InitializeBrowser(string browserName)
@@ -52,6 +42,16 @@ namespace PWUI
                 _ => throw new ArgumentException($"Browser '{browserName}' is not supported"),
             };
         }
+
+        [Given(@"I run the test on ""(.*)""")]
+        public async Task GivenIRunTheTestOn(string browser)
+        {
+            var browserName = browser.Replace("browser-", "").ToLower();
+            _browser = await InitializeBrowser(browserName);
+            _page = await _browser.NewPageAsync();
+            _pageDependencyService.SetPage(_page);
+        }
+
 
         [Given("I have navigated to the test url, logged in successfully")]
         public async Task GivenIHaveNavigatedToTheTestUrlLoggedInSuccessfully()
@@ -84,8 +84,10 @@ namespace PWUI
         [When("I complete the required fields to complete my checkout")]
         public async Task WhenICompleteTheRequiredFieldsToCompleteMyCheckout()
         {
+            Random random = new Random();
+            int number = random.Next(0, 100);
             var checkoutPage = _pageService.CheckoutPage;
-            await checkoutPage.FillOutCheckoutForm();
+            await checkoutPage.FillOutCheckoutForm("Test", "Testing", $"{number}");
         }
 
         [Then("I see a message confirming that my order has been successful")]

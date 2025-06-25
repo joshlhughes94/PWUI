@@ -24,13 +24,11 @@ namespace PWUI.Models
             await _checkoutButton.ClickAsync();
         }
 
-        public async Task FillOutCheckoutForm()
+        public async Task FillOutCheckoutForm(string firstName, string lastName, string postCode)
         {
-            Random random = new Random();
-            int number = random.Next(0, 100);
-            await _firstNameField.FillAsync("Test");
-            await _lastNameField.FillAsync("Testing");
-            await _postCodeField.FillAsync($"{number}");
+            await _firstNameField.FillAsync(firstName);
+            await _lastNameField.FillAsync(lastName);
+            await _postCodeField.FillAsync(postCode);
             await _continueButton.ClickAsync();
         }
 
