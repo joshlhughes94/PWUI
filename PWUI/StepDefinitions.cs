@@ -58,7 +58,7 @@ namespace PWUI
         private string GenerateRandomName()
         {
             var randomName = _random;
-            var names = new[] { "Josh", "Steve", "Alicia", "Nala", "Shadow" };
+            var names = new[] { "Josh", "Koba", "Alicia", "Nala", "Shadow" };
             int index = randomName.Next(names.Length);
             return names[index];
         }
