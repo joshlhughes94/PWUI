@@ -9,5 +9,7 @@ namespace PWUI.Settings
     public class AppSettings
     {
         public string TestUrl { get; set; } = null!;
+        public string Username { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 }

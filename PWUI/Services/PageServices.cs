@@ -9,16 +9,22 @@ namespace PWUI.Services
 {
     public interface IPageService
     {
-        LandingPage LandingPage { get; }
+        LoginPage LoginPage { get; }
+        ShopDashboard ShopDashboard { get; }
+        CheckoutPage CheckoutPage { get; }
     }
 
     public class PagesService : IPageService
     {
-        public PagesService(LandingPage landingPage)
+        public PagesService(LoginPage loginPage, ShopDashboard shopDashboard, CheckoutPage checkoutPage)
         {
-            LandingPage = landingPage ?? throw new ArgumentNullException(nameof(landingPage));
+            LoginPage = loginPage ?? throw new ArgumentNullException(nameof(loginPage));
+            ShopDashboard = shopDashboard ?? throw new ArgumentNullException(nameof(shopDashboard));
+            CheckoutPage = checkoutPage ?? throw new ArgumentNullException( nameof(checkoutPage));
         }
 
-        public LandingPage LandingPage { get;}
+        public LoginPage LoginPage { get; }
+        public ShopDashboard ShopDashboard { get; }
+        public CheckoutPage CheckoutPage { get; }
     }
 }

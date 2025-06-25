@@ -17,8 +17,6 @@ namespace PWUI
         private readonly IPageDependencyService _pageDependencyService;
         private IBrowser _browser;
         private IPage _page;
-        private static readonly Random _random = new Random();
-        private static readonly Guid _guid = new Guid();
 
         public StepDefinitions(IPageService pageService, IPageDependencyService pageDependencyService)
         {
@@ -55,35 +53,47 @@ namespace PWUI
             };
         }
 
-        private string GenerateRandomName()
+        [Given("I have navigated to the test url, logged in successfully")]
+        public async Task GivenIHaveNavigatedToTheTestUrlLoggedInSuccessfully()
         {
-            var randomName = _random;
-            var names = new[] { "Josh", "Koba", "Alicia", "Nala", "Shadow" };
-            int index = randomName.Next(names.Length);
-            return names[index];
+            var username = _pageDependencyService.AppSettings.Value.Username;
+            var password = _pageDependencyService.AppSettings.Value.Password;
+
+            var loginPage = _pageService.LoginPage;
+            await loginPage.GoToPageAsync();
+            await loginPage.LoginAsync(username, password);
+            await loginPage.CheckLoginWasSuccessful();
         }
 
-        [Given("I have navigated to the test url")]
-        public async Task GivenIHaveNavigatedToTheTestUrl()
+        [Given("I add a backpack to my basket")]
+        public async Task GivenIAddABackpackToMyBasket()
         {
-            var landingPage = _pageService.LandingPage;
-            await landingPage.GoToLandingPage();
+            var shopDash = _pageService.ShopDashboard;
+            await shopDash.AddBackPackToCart();
         }
 
-        [When("I have completed the Contact Form")]
-        public async Task CompleteContactForm()
+        [When("I go to the basket and select Checkout")]
+        public async Task WhenIGoToTheBasketAndSelectCheckout()
         {
-            var landingPage = new LandingPage(_pageDependencyService);
-            int randomNumber = _random.Next(1, 500); 
-            string name = GenerateRandomName();
-            string email = $"test{randomNumber}@example.com";
+            var shopDash = _pageService.ShopDashboard;
+            var checkoutPage = _pageService.CheckoutPage;
+            await shopDash.GoToBasket();
+            await checkoutPage.SelectCheckoutButton();
+        }
 
-            long phoneNumber = _random.Next(100000000, 200000000) + 10000000000; 
-            string subject = "Inquiry";
-            string message = "A general Inquiry";
-            
-            await _pageService.LandingPage.SubmitContactForm(name, email, phoneNumber, subject, message);
-            await landingPage.RetryContactFormSubmission(name, email, phoneNumber, subject, message);
+        [When("I complete the required fields to complete my checkout")]
+        public async Task WhenICompleteTheRequiredFieldsToCompleteMyCheckout()
+        {
+            var checkoutPage = _pageService.CheckoutPage;
+            await checkoutPage.FillOutCheckoutForm();
+        }
+
+        [Then("I see a message confirming that my order has been successful")]
+        public async Task ThenISeeAMessageConfirmingThatMyOrderHasBeenSuccessful()
+        {
+            var checkoutPage = _pageService.CheckoutPage;
+            await checkoutPage.SelectFinishButton();
+            await checkoutPage.CheckThankYouMessageIsDisplayed();
         }
     }
 }

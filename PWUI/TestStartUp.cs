@@ -74,7 +74,9 @@ namespace PWUI
 
         private static void RegisterPages(this ContainerBuilder builder)
         {
-            builder.RegisterType<LandingPage>().AsSelf().InstancePerDependency();
+            builder.RegisterType<LoginPage>().AsSelf().InstancePerDependency();
+            builder.RegisterType<ShopDashboard>().AsSelf().InstancePerDependency();
+            builder.RegisterType<CheckoutPage>().AsSelf().InstancePerDependency();
         }
 
         private static void RegisterPageHandler(this ContainerBuilder builder)
