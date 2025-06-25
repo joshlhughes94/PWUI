@@ -1,16 +1,25 @@
 ﻿Feature: TestWebsiteTests
 
 @browser-firefox
-Scenario: Test Website Firefox
-	Given I have navigated to the test url
-	When I have completed the Contact Form
-
-@browser-chromium
-Scenario: Test Website Chrome
-	Given I have navigated to the test url
-	When I have completed the Contact Form
+Scenario: Buy a item Firefox
+	Given I have navigated to the test url, logged in successfully
+	And I add a backpack to my basket
+	When I go to the basket and select Checkout 
+	And I complete the required fields to complete my checkout
+	Then I see a message confirming that my order has been successful
 
 @browser-webkit
-Scenario: Test Website Webkit
-	Given I have navigated to the test url
-	When I have completed the Contact Form
+Scenario: Buy a item Safari
+	Given I have navigated to the test url, logged in successfully
+	And I add a backpack to my basket
+	When I go to the basket and select Checkout 
+	And I complete the required fields to complete my checkout
+	Then I see a message confirming that my order has been successful
+
+	@browser-chromium
+Scenario: Buy a item Chrome
+	Given I have navigated to the test url, logged in successfully
+	And I add a backpack to my basket
+	When I go to the basket and select Checkout 
+	And I complete the required fields to complete my checkout
+	Then I see a message confirming that my order has been successful
